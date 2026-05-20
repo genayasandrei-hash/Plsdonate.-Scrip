@@ -1,0 +1,93 @@
+-- SIMPLE WORKING VERSION
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+
+-- MAKE SIMPLE UI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+
+local Main = Instance.new("Frame")
+LocalPlayer = game.Players.LocalPlayer
+local Workspace = game.Workspace
+Main.Size = UDim2.new(0, 250, 0, 300)
+Main.Position = UDim2.new(0.5, -125, 0.5, -150)
+Main.BackgroundColor3 = Color3.new(0.1,0.1,0.1)
+Main.Active = true
+Main.Draggable = true
+Main.Parent = ScreenGui
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,0,0,30)
+Title.BackgroundColor3 = Color3.new(0.2,0.2,0.8)
+Title.Text = "PLS DONATE | YOUR SCRIPT"
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = Enum.Font.GothamBold
+Title.Parent = Main
+
+-- BUTTON 1: AUTO COLLECT
+local B1 = Instance.new("TextButton")
+B1.Size = UDim2.new(0.9,0,0,40)
+B1.Position = UDim2.new(0.05,0,0.15,0)
+B1.BackgroundColor3 = Color3.new(0.2,0.6,0.2)
+B1.Text = "AUTO COLLECT"
+B1.TextColor3 = Color3.new(1,1,1)
+B1.Font = Enum.Font.Gotham
+B1.Parent = Main
+B1.MouseButton1Click:Connect(function()
+    spawn(function()
+        while wait(0.5) do
+            for _,v in pairs(Workspace:GetDescendants()) do
+                if v:IsA("ProximityPrompt") and v.Name == "Collect" then
+                    fireproximityprompt(v)
+                end
+            end
+        end
+    end)
+end)
+
+-- BUTTON 2: AUTO BUY
+local B2 = Instance.new("TextButton")
+B2.Size = UDim2.new(0.9,0,0,40)
+B2.Position = UDim2.new(0.05,0,0.32,0)
+B2.BackgroundColor3 = Color3.new(0.6,0.2,0.2)
+B2.Text = "AUTO BUY STANDS"
+B2.TextColor3 = Color3.new(1,1,1)
+B2.Font = Enum.Font.Gotham
+B2.Parent = Main
+B2.MouseButton1Click:Connect(function()
+    spawn(function()
+        while wait(0.5) do
+            for _,v in pairs(Workspace:GetDescendants()) do
+                if v:IsA("ProximityPrompt") and v.Name == "Buy" then
+                    fireproximityprompt(v)
+                end
+            end
+        end
+    end)
+end)
+
+-- BUTTON 3: FAKE DONATE
+local B3 = Instance.new("TextButton")
+B3.Size = UDim2.new(0.9,0,0,40)
+B3.Position = UDim2.new(0.05,0,0.49,0)
+B3.BackgroundColor3 = Color3.new(0.8,0.6,0.1)
+B3.Text = "FAKE 1M DONATION"
+B3.TextColor3 = Color3.new(1,1,1)
+B3.Font = Enum.Font.Gotham
+B3.Parent = Main
+B3.MouseButton1Click:Connect(function()
+    game.ReplicatedStorage.DefaultChatSystem:FireServer("I just donated 1,000,000 ROBUX! 😎🔥", 2)
+end)
+
+-- CLOSE BUTTON
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0.3,0,0,25)
+Close.Position = UDim2.new(0.35,0,0.75,0)
+Close.BackgroundColor3 = Color3.new(0.5,0.1,0.1)
+Close.Text = "CLOSE"
+Close.TextColor3 = Color3.new(1,1,1)
+Close.Font = Enum.Font.GothamBold
+Close.Parent = Main
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
